@@ -1,10 +1,18 @@
 import React from 'react';
+import VehicleList from './vehicles/VehicleList';
+import CheckOutVehicle from './vehicles/CheckOutVehicle';
 
 const AllData = () => {
 
     return (
         <div>
-            All data
+            <div className = "ui segment">
+                <CheckOutVehicle/>
+            </div>
+            
+            <div className = "ui segment">
+                <VehicleList/>
+            </div>
         </div>
     );
 }

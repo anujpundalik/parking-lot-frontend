@@ -7,13 +7,15 @@ import {
   ADD_CATEGORY,
   EDIT_CATEGORY 
 } from './types';
+import ParkedVehicles from '../apis/ParkedVehicles';
+import history from '../history';
 
+export const checkInVehicle = (formValues) => async (dispatch) =>{
 
-export const checkInVehicle = () =>{
+  const response = await ParkedVehicles.post('/vehicles', {...formValues});
 
-  return {
-      type : CHECKIN_VEHICLE
-  };
+  dispatch ({type : CHECKIN_VEHICLE, payload : response.data});
+  history.push('/');
 };
 
 
@@ -24,20 +26,17 @@ export const checkOutVehicle = () =>{
   };
 };
 
+export const fetchVehicle = id => async dispatch => {
+  const response = await ParkedVehicles.get(`/vehicles/${id}`);
 
-export const fetchVehicle = () =>{
-
-  return {
-      type : FETCH_VEHICLE
-  };
+  dispatch({ type: FETCH_VEHICLE, payload: response.data });
 };
 
 
-export const fetchVehicles = () =>{
+export const fetchVehicles = () => async dispatch => {
+  const response = await ParkedVehicles.get('/vehicles');
 
-  return {
-      type : FETCH_VEHICLES
-  };
+  dispatch({ type: FETCH_VEHICLES, payload: response.data });
 };
 
 export const unparkVehicle = () =>{

@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 const Header = () => {
 
     return (
-        <div class="ui massive secondary pointing menu">
+        <div className ="ui massive secondary pointing menu">
             <Link to = "/" className ="active item">
                 Home
             </Link>
 
-            <div class="right menu">
+            <div className ="right menu">
                 <Link to = "/vehicles/checkin" className = "item"> Checkin Vehicle </Link>
                 
                 <Link to = "/parkinglevels" className = "item"> All Parking Levels </Link>
