@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import {connect} from 'react-redux';
+import { fetchCategories} from '../../actions';
+import RenderCategories from './RenderCategories';
 
-const ManageVehicleCategories = () =>{
+const ManageVehicleCategories = ({fetchCategories, categories}) => {
 
+    useEffect(() => {
+            fetchCategories();
+        },[]);
+    
     return (
-
-        <div> Manage Category </div>
+        <div>
+            <h2>Vehicles Categories</h2>
+            <div className = "ui celled table"> 
+                <RenderCategories categories = {categories} />
+            </div>
+        </div>
     );
 };
 
-export default ManageVehicleCategories;
+const mapStateToProps = state =>{
+
+    return {categories : Object.values(state.categories)}
+};
+
+export default connect(
+    mapStateToProps,
+    {fetchCategories}
+)(ManageVehicleCategories);

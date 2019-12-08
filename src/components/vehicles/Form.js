@@ -1,10 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { checkInVehicle } from '../../actions';
-import {connect} from 'react-redux';
+
+const globalAttributes = []
 
 const renderInput = ({ input, label, meta}) => {
-
   const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
   return (
       <div className={className}>
@@ -15,6 +14,7 @@ const renderInput = ({ input, label, meta}) => {
       </div>
   );
 };
+
 const renderError = ({ error, touched }) => {
   if (touched && error) {
       return (
@@ -25,10 +25,25 @@ const renderError = ({ error, touched }) => {
   }
 };
 
-const CheckInVehicle = (props) => {
+const renderForm = (attributes) => {
+  
+  const fields = [];
+  for (let i = 0; i < attributes.length; i++){
+    
+    fields.push(<Field name= {attributes[i]} component= {renderInput} label= {`Enter a ${attributes[i]}`} key = {i}/>)
+    globalAttributes.push(attributes[i]);
+  }
+  return (
+    <div>
+      {fields}    
+    </div>
+  );
+}
+
+const Form = (props) => {
   
     const onFormSubmit = formValues => {
-        props.checkInVehicle(formValues);
+        props.onSubmit(formValues);
     };
 
     return (
@@ -36,12 +51,7 @@ const CheckInVehicle = (props) => {
         onSubmit={props.handleSubmit(onFormSubmit)}
         className="ui form error"
       >
-        <Field name="vehicleType" component= {renderInput} label="Enter a vehicle type" />
-        <Field
-          name="vehicleNumber"
-          component={renderInput}
-          label="Enter a Vehicle Number"
-        />
+        {renderForm(props.attributes)}
         <button className="ui button primary">Submit</button>
       </form>
     );
@@ -51,19 +61,18 @@ const CheckInVehicle = (props) => {
 const validate = formValues => {
   const errors = {};
 
-  if (!formValues.vehicleType) {
-    errors.vehicleType = 'You must enter a vehicle type';
+  if (!formValues.category) {
+    errors.category = 'You must enter a category';
   }
 
-  if (!formValues.vehicleNumber) {
-    errors.vehicleNumber = 'You must enter a vehicle number';
+  if (!formValues.rates) {
+    errors.rates = 'You must enter a rate';
   }
+
   return errors;
 };
 
-const formWrapped =  reduxForm({
-  form: 'CheckInVehicle',
+export default reduxForm({
+  form: 'Form',
   validate
-})(CheckInVehicle);
-
-export default connect(null, {checkInVehicle})(formWrapped);
+})(Form);

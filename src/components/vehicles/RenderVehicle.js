@@ -24,9 +24,9 @@ const RenderVehicle = ({vehicles}) =>{
                   {
                     vehicles.map( (vehicle,i) => {
                         return (
-                            <tr key = {i}>
+                            <tr key = {i + 1}>
                                 <td>
-                                    {i}
+                                    {i + 1}
                                 </td>
                                 <td data-label ="Vehicle Number">
                                     {vehicle.vehicleNumber}
@@ -54,7 +54,7 @@ const RenderVehicle = ({vehicles}) =>{
                                 </td>
                                 <td data-label ="Action">
                                     <div>
-                                        <button className = "ui button primary">Checkout</button>
+                                        <button className = "ui button primary" type ="submit" >Checkout</button>
                                     </div>
                                 </td>
                             </tr>      

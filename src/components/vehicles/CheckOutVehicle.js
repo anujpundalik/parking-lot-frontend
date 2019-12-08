@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import {unparkVehicle} from '../../actions';
+import {checkOutVehicle} from '../../actions';
 import RenderVehicle from './RenderVehicle';
 
 
@@ -14,16 +14,20 @@ const renderSearch = () =>{
             </div>
     );       
 }
-const renderVehicleHere = (vehicle) =>{
+const renderCheckOutVehicle= (vehicle) =>{
 
-    if (vehicle.vehicleNumber === ""|| vehicle.vehicleNumber === "No vehicle Found")
-        return <div>
-            {vehicle.vehicleNumber}
-        </div>
-    else 
+    if (vehicle.vehicleNumber === ""|| vehicle.vehicleNumber === "No vehicle Found"){
+        return (    
+                    <div>
+                        {vehicle.vehicleNumber}
+                    </div>
+                );
+    }
+    else{
         return (
             <RenderVehicle vehicles = {vehicle}/>            
         );
+    }
 };
 
 const CheckOutVehicle = (props) => {   
@@ -37,26 +41,32 @@ const CheckOutVehicle = (props) => {
         event.preventDefault();
         const vehicleNumber = new FormData(event.target).get('search-term');
         const vehicle = props.vehicles.filter(vehicle => vehicle.vehicleNumber  === vehicleNumber);
-        
-        if (typeof vehicle !== 'undefined'){
-            setFoundVehicle(vehicle);
+    
+        if (typeof vehicle[0] !== 'undefined'){
+            setFoundVehicle(vehicle)
         }
-        else
+        else{
             setFoundVehicle({vehicleNumber : "No vehicle Found"})   
+        }
     };
 
+    const onVehicleCheckOut = (event) =>{
+        const id = foundVehicle[0].id
+        props.checkOutVehicle(id);
+    };
     return (
         <div>
-            <div className = "ui item">
-                <form onSubmit = {onSearchSubmit}>
+            <form onSubmit = {onSearchSubmit}>
                     {renderSearch()} 
+            </form>
+        
+            <div>
+                <form onSubmit = {onVehicleCheckOut}>
+                    {renderCheckOutVehicle(foundVehicle)}
                 </form>
-            </div>
-
-            <div className = "ui item">
-                {renderVehicleHere(foundVehicle)}
             </div>  
         </div>
+    
     );
 }
 
@@ -65,5 +75,5 @@ const mapStateToProps = (state) =>{
 };
 export default connect(
     mapStateToProps,
-    {unparkVehicle}
+    {checkOutVehicle}
 )(CheckOutVehicle);

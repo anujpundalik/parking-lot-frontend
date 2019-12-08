@@ -21,8 +21,8 @@ const App = () => {
                         <Route path = "/vehicles/checkin" exact component = {CheckInVehicle}/>
                         <Route path = "/vehicles/checkout" exact component = {CheckOutVehicle}/>
                         <Route path = "/parkinglevels" exact component = {ParkingLevels}/>
-                        <Route path = "/vehicles/addCategory" exact component = {AddVehicleCategory}/>
-                        <Route path = "/vehicles/manageCategory" exact component = {ManageVehicleCategories}/>
+                        <Route path = "/category/add" exact component = {AddVehicleCategory}/>
+                        <Route path = "/category/manage" exact component = {ManageVehicleCategories}/>
                     </Switch>
                 </div>
             </Router>

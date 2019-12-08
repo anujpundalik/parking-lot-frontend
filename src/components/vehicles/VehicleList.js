@@ -3,21 +3,18 @@ import {connect} from 'react-redux';
 import { fetchVehicles} from '../../actions';
 import RenderVehicle from './RenderVehicle';
 
-const VehicleList = (props) => {
-
+const VehicleList = ({fetchVehicles, vehicles}) => {
     
-    useEffect(
-        () => {
-            props.fetchVehicles();
-        },
-        []
-    );
-
+    useEffect(() => {
+            fetchVehicles();
+        },[]);
+    
+    console.log("here")
     return (
         <div>
             <h2>Vehicles Parked</h2>
             <div className = "ui celled table"> 
-                <RenderVehicle vehicles = {props.vehicles} />
+                <RenderVehicle vehicles = {vehicles} />
             </div>
         </div>
     );

@@ -17,8 +17,8 @@ const Header = () => {
                 <div className ="ui simple dropdown item">
                     Vehicle Category <i className="dropdown icon"></i>           
                     <div className="menu">
-                        <Link to = "/vehicles/addCategory" className = "item">Add Category</Link>
-                        <Link to = "/vehicles/manageCategory" className = "item">Manage Category</Link>
+                        <Link to = "/category/add" className = "item">Add Category</Link>
+                        <Link to = "/category/manage" className = "item">Manage Category</Link>
                     </div>
                 </div>
                 <div className="item">
